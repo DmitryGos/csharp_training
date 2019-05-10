@@ -9,8 +9,9 @@ namespace WebAddressbookTests
     class UserData
     {
         private string firstname;
-        private string midname;
         private string lastname;
+        private string email;
+        private string midname = "";
         private string nickname = "";
         private string title = "";
         private string company = "";
@@ -19,7 +20,7 @@ namespace WebAddressbookTests
         private string phone_mobile = "";
         private string phone_work = "";
         private string phone_fax = "";
-        private string email = "";
+        private string photo = "";
         private string email2 = "";
         private string email3 = "";
         private string homepage= "";
@@ -33,13 +34,46 @@ namespace WebAddressbookTests
         private string phone_home2 = "";
         private string notes = "";
 
-        public UserData(string firstname, string midname, string lastname)
+    public UserData(string firstname, string lastname, string email)
         {
             this.firstname = firstname;
-            this.midname = midname;
             this.lastname = lastname;
+            this.email = email;
         }
-    public string Nickname
+        public string Firstname
+        {
+            get
+            {
+                return firstname;
+            }
+            set
+            {
+                firstname = value;
+            }
+        }
+        public string Midname
+        {
+            get
+            {
+                return midname;
+            }
+            set
+            {
+                midname = value;
+            }
+        }
+        public string Lastname
+        {
+            get
+            {
+                return Lastname;
+            }
+            set
+            {
+                Lastname = value;
+            }
+        }
+        public string Nickname
         {
             get
             {
@@ -52,14 +86,16 @@ namespace WebAddressbookTests
         }
         public string Title
         {
-            get {
+            get
+            {
                 return title;
             }
-            set {
+            set
+            {
                 title = value;
             }
         }
-        public string Company
+    public string Company
         {
             get
             {
@@ -70,7 +106,7 @@ namespace WebAddressbookTests
                 company = value;
             }
         }
-        public string Address
+    public string Address
         {
             get
             {
@@ -81,7 +117,7 @@ namespace WebAddressbookTests
                 address = value;
             }
         }
-        public string Phone_home
+    public string Phone_home
         {
             get
             {
@@ -92,7 +128,7 @@ namespace WebAddressbookTests
                 phone_home = value;
             }
         }
-        public string Phone_mobile
+    public string Phone_mobile
         {
             get
             {
@@ -103,7 +139,7 @@ namespace WebAddressbookTests
                 phone_mobile = value;
             }
         }
-        public string Phone_work
+    public string Phone_work
         {
             get
             {
@@ -123,6 +159,161 @@ namespace WebAddressbookTests
             set
             {
                 phone_fax = value;
+            }
+        }
+        public string Photo
+        {
+            get
+            {
+                return photo;
+            }
+            set
+            {
+                photo = value;
+            }
+        }
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                email = value;
+            }
+        }
+        public string Email2
+        {
+            get
+            {
+                return email2;
+            }
+            set
+            {
+                email2 = value;
+            }
+        }
+        public string Email3
+        {
+            get
+            {
+                return email3;
+            }
+            set
+            {
+                email3 = value;
+            }
+        }
+        public string Homepage
+        {
+            get
+            {
+                return homepage;
+            }
+            set
+            {
+                homepage = value;
+            }
+        }
+        public string Bday
+        {
+            get
+            {
+                return bday;
+            }
+            set 
+            {
+                bday = value;
+            }
+        }
+        public string Bmonth
+        {
+            get
+            {
+                return bmonth;
+            }
+            set
+            {
+                bmonth = value;
+            }
+        }
+        public string Byear
+        {
+            get
+            {
+                return byear;
+            }
+            set
+            {
+                byear = value;
+            }
+        }
+
+        public string Aday
+        {
+            get
+            {
+                return aday;
+            }
+            set
+            {
+                aday = value;
+            }
+        }
+        public string Amonth
+        {
+            get
+            {
+                return amonth;
+            }
+            set
+            {
+                amonth = value;
+            }
+        }
+        public string Ayear
+        {
+            get
+            {
+                return ayear;
+            }
+            set
+            {
+                ayear = value;
+            }
+        }
+        public string Address2
+        {
+            get
+            {
+                return address2;
+            }
+            set
+            {
+                address2 = value;
+            }
+        }
+        public string Phone_home2
+        {
+            get
+            {
+                return phone_home2;
+            }
+            set
+            {
+                phone_home2 = value;
+            }
+        }
+        public string Notes
+        {
+            get
+            {
+                return notes;
+            }
+            set
+            {
+                notes = value;
             }
         }
     }
