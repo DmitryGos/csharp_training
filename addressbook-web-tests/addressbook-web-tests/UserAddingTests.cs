@@ -45,7 +45,7 @@ namespace WebAddressbookTests
             OpenHomePage();
             Login(new AccountData("admin", "secret"));
             GotoUserAddingPage();
-            UserData user = new UserData("Uname1", "Ulastname1", "Uemail1");
+            UserData user = new UserData("Uname1", "Ulastname1");
             SettingAdditionalUserData(user);
             FillUserForm(user);
             CreateNewUser();
@@ -61,91 +61,21 @@ namespace WebAddressbookTests
         {
             user.Midname = "UMidname1";
             user.Nickname = "UNickName1";
-            user.Title = "UTitle1";
-            user.Company = "UCompany1";
-            user.Address = "UAddress1";
-            user.Phone_home = "UHome1";
-            user.Phone_mobile = "UMobile1";
-            user.Phone_work = "UWork1";
-            user.Phone_fax = "UFax1";
-            user.Photo = "c:\\users\\User\\source\\repos\\csharp_training\\avatar.png";
-            user.Email2 = "UEmail21";
-            user.Email3 = "UEmail31";
-            user.Homepage = "UHomepage1";
-            user.Bday = "1";
-            user.Bmonth = "April";
-            user.Byear = "1980";
-            user.Aday = "1";
-            user.Amonth = "April";
-            user.Ayear = "2030";
-            user.Address2 = "UAddressSec1";
-            user.Phone_home2 = "UPhomeHome21";
-            user.Notes = "Notes1";
         }
 
         private void FillUserForm(UserData user)
         {
+            driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
+            driver.FindElement(By.Name("middlename")).Click();
             driver.FindElement(By.Name("middlename")).Clear();
             driver.FindElement(By.Name("middlename")).SendKeys(user.Midname);
             driver.FindElement(By.Name("lastname")).Clear();
             driver.FindElement(By.Name("lastname")).SendKeys(user.Lastname);
+            driver.FindElement(By.Name("nickname")).Click();
             driver.FindElement(By.Name("nickname")).Clear();
             driver.FindElement(By.Name("nickname")).SendKeys(user.Nickname);
-            driver.FindElement(By.Name("photo")).Click();
-            driver.FindElement(By.Name("photo")).Clear();
-            driver.FindElement(By.Name("photo")).SendKeys(user.Photo);
-            driver.FindElement(By.Name("title")).Click();
-            driver.FindElement(By.Name("title")).Clear();
-            driver.FindElement(By.Name("title")).SendKeys(user.Title);
-            driver.FindElement(By.Name("company")).Clear();
-            driver.FindElement(By.Name("company")).SendKeys(user.Company);
-            driver.FindElement(By.Name("address")).Clear();
-            driver.FindElement(By.Name("address")).SendKeys(user.Address);
-            driver.FindElement(By.Name("home")).Clear();
-            driver.FindElement(By.Name("home")).SendKeys(user.Phone_home);
-            driver.FindElement(By.Name("mobile")).Clear();
-            driver.FindElement(By.Name("mobile")).SendKeys(user.Phone_mobile);
-            driver.FindElement(By.Name("work")).Clear();
-            driver.FindElement(By.Name("work")).SendKeys(user.Phone_work);
-            driver.FindElement(By.Name("fax")).Clear();
-            driver.FindElement(By.Name("fax")).SendKeys(user.Phone_fax);
-            driver.FindElement(By.Name("email")).Clear();
-            driver.FindElement(By.Name("email")).SendKeys(user.Email);
-            driver.FindElement(By.Name("email2")).Clear();
-            driver.FindElement(By.Name("email2")).SendKeys(user.Email2);
-            driver.FindElement(By.Name("email3")).Clear();
-            driver.FindElement(By.Name("email3")).SendKeys(user.Email3);
-            driver.FindElement(By.Name("homepage")).Clear();
-            driver.FindElement(By.Name("homepage")).SendKeys(user.Homepage);
-            driver.FindElement(By.Name("bday")).Click();
-            new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText(user.Bday);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[3]")).Click();
-            driver.FindElement(By.Name("bmonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText(user.Bmonth);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::option[38]")).Click();
-            driver.FindElement(By.Name("byear")).Click();
-            driver.FindElement(By.Name("byear")).Clear();
-            driver.FindElement(By.Name("byear")).SendKeys(user.Byear);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::label[1]")).Click();
-            // ERROR: Caught exception [ERROR: Unsupported command [doubleClick | xpath=(.//*[normalize-space(text()) and normalize-space(.)='Birthday:'])[1]/following::label[1] | ]]
-            driver.FindElement(By.Name("aday")).Click();
-            new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText(user.Aday);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Anniversary:'])[1]/following::option[3]")).Click();
-            driver.FindElement(By.Name("amonth")).Click();
-            new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText(user.Amonth);
-            driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='Anniversary:'])[1]/following::option[38]")).Click();
-            driver.FindElement(By.Name("ayear")).Click();
-            driver.FindElement(By.Name("ayear")).Clear();
-            driver.FindElement(By.Name("ayear")).SendKeys(user.Ayear);
-            driver.FindElement(By.Name("address2")).Click();
-            driver.FindElement(By.Name("address2")).Clear();
-            driver.FindElement(By.Name("address2")).SendKeys(user.Address2);
-            driver.FindElement(By.Name("phone2")).Clear();
-            driver.FindElement(By.Name("phone2")).SendKeys(user.Phone_home2);
-            driver.FindElement(By.Name("notes")).Clear();
-            driver.FindElement(By.Name("notes")).SendKeys(user.Notes);
         }
 
         private void GotoUserAddingPage()
