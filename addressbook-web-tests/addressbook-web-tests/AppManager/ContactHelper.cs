@@ -9,9 +9,9 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    public class UserHelper : HelperBase
+    public class ContactHelper : HelperBase
     {
-        public UserHelper(ApplicationManager manager) 
+        public ContactHelper(ApplicationManager manager) 
             : base(manager)
         {
         }
@@ -24,13 +24,13 @@ namespace WebAddressbookTests
             SubmitUserCreation();
         }
 
-        public UserHelper SettingAdditionalUserData(UserData user)
+        public ContactHelper SettingAdditionalUserData(UserData user)
         {
             user.Midname = "UMidname1";
             user.Nickname = "UNickName1";
             return this;
         }
-        public UserHelper FillUserForm(UserData user)
+        public ContactHelper FillUserForm(UserData user)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -45,7 +45,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("nickname")).SendKeys(user.Nickname);
             return this;
         }
-        public UserHelper SubmitUserCreation()
+        public ContactHelper SubmitUserCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();

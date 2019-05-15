@@ -65,7 +65,8 @@
     <Compile Include="AppManager\ApplicationManager.cs" />
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="AppManager\GroupHelper.cs" />
-    <Compile Include="Tests\GroupRemovalTest.cs" />
+    <Compile Include="Tests\GroupModificationTests.cs" />
+    <Compile Include="Tests\GroupRemovalTests.cs" />
     <Compile Include="AppManager\HelperBase.cs" />
     <Compile Include="AppManager\LoginHelper.cs" />
     <Compile Include="AppManager\NavigationHelper.cs" />
@@ -74,7 +75,7 @@
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="Tests\UserAddingTests.cs" />
     <Compile Include="Model\UserData.cs" />
-    <Compile Include="AppManager\UserHelper.cs" />
+    <Compile Include="AppManager\ContactHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
