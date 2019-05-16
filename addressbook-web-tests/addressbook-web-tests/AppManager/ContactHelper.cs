@@ -15,22 +15,66 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
-
-        internal void Create(UserData user)
+        public ContactHelper Create(UserData user)
         {
-            manager.Navigator.GotoUserAddingPage();
+            manager.Navigator.GotoContactAddingPage();
             SettingAdditionalUserData(user);
-            FillUserForm(user);
-            SubmitUserCreation();
+            FillContactForm(user);
+            ConfirmContactCreation();
+
+            return this;
         }
 
+        public ContactHelper Modify(UserData newData)
+        {
+            manager.Navigator.GotoHomePage();
+
+            InitContactModification(newData);
+            FillContactForm(newData);
+            ConfirmContactModification();
+
+            return this;
+        }
+
+        public ContactHelper Remove(UserData user)
+        {
+            manager.Navigator.GotoHomePage();
+
+            SelectContact(user);
+            DeleteSelectedAccount();
+            ConfirmContactRemoval();
+
+            return this;
+        }
+
+        public ContactHelper SelectContact(UserData user)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + user.Id + "]/td/input")).Click();
+            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='import'])[1]/following::td[1]")).Click();
+
+            return this;
+        }
+        private void DeleteSelectedAccount()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+        }
+        private void ConfirmContactRemoval()
+        {
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        public ContactHelper InitContactModification(UserData newData)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + newData.Id + "]")).Click();
+            return this;
+        }
         public ContactHelper SettingAdditionalUserData(UserData user)
         {
             user.Midname = "UMidname1";
             user.Nickname = "UNickName1";
             return this;
         }
-        public ContactHelper FillUserForm(UserData user)
+        public ContactHelper FillContactForm(UserData user)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -45,9 +89,15 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("nickname")).SendKeys(user.Nickname);
             return this;
         }
-        public ContactHelper SubmitUserCreation()
+        public ContactHelper ConfirmContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            driver.FindElement(By.LinkText("Logout")).Click();
+            return this;
+        }
+        public ContactHelper ConfirmContactModification()
+        {
+            driver.FindElement(By.XPath("(//input[@name='update'])")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }

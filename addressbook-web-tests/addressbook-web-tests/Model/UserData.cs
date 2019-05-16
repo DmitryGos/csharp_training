@@ -12,6 +12,7 @@ namespace WebAddressbookTests
         private string lastname;
         private string midname = "";
         private string nickname = "";
+        private string id = "";
 
     public UserData(string firstname, string lastname)
         {
@@ -60,6 +61,17 @@ namespace WebAddressbookTests
             set
             {
                 nickname = value;
+            }
+        }
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
             }
         }
     }
