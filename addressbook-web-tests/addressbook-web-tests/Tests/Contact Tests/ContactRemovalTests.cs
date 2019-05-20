@@ -12,10 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            UserData user = new UserData("Uname1", "Ulastname1");
-            user.Id = "2";
-
-            app.Users.Remove(user);
+            app.Users.Remove(1);
         }
     }
 }

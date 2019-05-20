@@ -25,32 +25,31 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Modify(UserData newData)
+        public ContactHelper Modify(int id, UserData newData)
         {
             manager.Navigator.GotoHomePage();
 
-            InitContactModification(newData);
+            InitContactModification(id);
             FillContactForm(newData);
             ConfirmContactModification();
 
             return this;
         }
 
-        public ContactHelper Remove(UserData user)
+        public ContactHelper Remove(int id)
         {
             manager.Navigator.GotoHomePage();
 
-            SelectContact(user);
+            SelectContact(id);
             DeleteSelectedAccount();
             ConfirmContactRemoval();
 
             return this;
         }
 
-        public ContactHelper SelectContact(UserData user)
+        public ContactHelper SelectContact(int id)
         {
-            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + user.Id + "]/td/input")).Click();
-            //driver.FindElement(By.XPath("(.//*[normalize-space(text()) and normalize-space(.)='import'])[1]/following::td[1]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + id + "]")).Click();
 
             return this;
         }
@@ -63,9 +62,9 @@ namespace WebAddressbookTests
             driver.SwitchTo().Alert().Accept();
         }
 
-        public ContactHelper InitContactModification(UserData newData)
+        public ContactHelper InitContactModification(int id)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + newData.Id + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + id + "]")).Click();
             return this;
         }
         public ContactHelper SettingAdditionalUserData(UserData user)
