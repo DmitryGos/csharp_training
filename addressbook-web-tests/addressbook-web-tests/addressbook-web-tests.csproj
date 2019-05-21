@@ -78,6 +78,7 @@
     <Compile Include="Tests\Contact Tests\ContactAddingTests.cs" />
     <Compile Include="Model\UserData.cs" />
     <Compile Include="AppManager\ContactHelper.cs" />
+    <Compile Include="Tests\TestSuiteFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

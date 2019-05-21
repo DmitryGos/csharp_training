@@ -75,17 +75,11 @@ namespace WebAddressbookTests
         }
         public ContactHelper FillContactForm(UserData user)
         {
-            driver.FindElement(By.Name("firstname")).Click();
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(user.Firstname);
-            driver.FindElement(By.Name("middlename")).Click();
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(user.Midname);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(user.Lastname);
-            driver.FindElement(By.Name("nickname")).Click();
-            driver.FindElement(By.Name("nickname")).Clear();
-            driver.FindElement(By.Name("nickname")).SendKeys(user.Nickname);
+            Type(By.Name("firstname"), user.Firstname);
+            Type(By.Name("middlename"), user.Midname);
+            Type(By.Name("lastname"), user.Lastname);
+            Type(By.Name("nickname"), user.Nickname);
+
             return this;
         }
         public ContactHelper ConfirmContactCreation()
