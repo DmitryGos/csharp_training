@@ -29,7 +29,7 @@ namespace WebAddressbookTests
         {
             //prepare
             app.Auth.Logout();
-            
+
             //action
             AccountData account = new AccountData("admin", "123456");
             app.Auth.Login(account);
