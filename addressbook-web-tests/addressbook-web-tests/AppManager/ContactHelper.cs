@@ -62,9 +62,9 @@ namespace WebAddressbookTests
             driver.SwitchTo().Alert().Accept();
         }
 
-        public ContactHelper InitContactModification(int id)
+        public ContactHelper InitContactModification(int num)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + id + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + num + "]")).Click();
             return this;
         }
         public ContactHelper SettingAdditionalUserData(UserData user)
@@ -85,13 +85,11 @@ namespace WebAddressbookTests
         public ContactHelper ConfirmContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }
         public ContactHelper ConfirmContactModification()
         {
             driver.FindElement(By.XPath("(//input[@name='update'])")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
             return this;
         }
     }

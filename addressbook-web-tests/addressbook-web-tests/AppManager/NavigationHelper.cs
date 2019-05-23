@@ -34,6 +34,7 @@ namespace WebAddressbookTests
                 return;
             }
 
+            driver.FindElement(By.LinkText("groups"));
             driver.FindElement(By.LinkText("groups")).Click();
         }
         public void GotoContactAddingPage()

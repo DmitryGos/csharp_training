@@ -23,7 +23,7 @@ namespace WebAddressbookTests
             //verification
             Assert.IsTrue(app.Auth.IsLoggedIn(account));
         }
-
+        
         [Test]
         public void LoginWithInvalidCredentials()
         {
