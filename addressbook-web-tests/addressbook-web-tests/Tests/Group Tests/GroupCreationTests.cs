@@ -12,10 +12,10 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("GroupName1");
-            group.Header = "GroupHeader1";
-            group.Footer = "GroupFooter1";
-
+            GroupData group = new GroupData("GroupName");
+            group.Header = "GroupHeader";
+            group.Footer = "GroupFooter";
+            
             app.Groups.Create(group);
         }
         [Test]

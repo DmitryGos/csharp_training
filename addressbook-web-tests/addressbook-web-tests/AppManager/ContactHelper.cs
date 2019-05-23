@@ -29,6 +29,14 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GotoHomePage();
 
+            if (!IsContactExists(id))
+            {
+                UserData user = new UserData("Uname", "Ulastname");
+
+                Create(user);
+                manager.Navigator.GotoHomePage();
+            }
+
             InitContactModification(id);
             FillContactForm(newData);
             ConfirmContactModification();
@@ -40,11 +48,23 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GotoHomePage();
 
+            if (! IsContactExists(id))
+            {
+                UserData user = new UserData("Uname", "Ulastname");
+
+                Create(user);
+                manager.Navigator.GotoHomePage();
+            }
+
             SelectContact(id);
             DeleteSelectedAccount();
             ConfirmContactRemoval();
 
             return this;
+        }
+        public bool IsContactExists(int id)
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + id + "]"));
         }
 
         public ContactHelper SelectContact(int id)
@@ -62,9 +82,9 @@ namespace WebAddressbookTests
             driver.SwitchTo().Alert().Accept();
         }
 
-        public ContactHelper InitContactModification(int num)
+        public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + num + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
         public ContactHelper SettingAdditionalUserData(UserData user)
@@ -75,10 +95,13 @@ namespace WebAddressbookTests
         }
         public ContactHelper FillContactForm(UserData user)
         {
-            Type(By.Name("firstname"), user.Firstname);
-            Type(By.Name("middlename"), user.Midname);
-            Type(By.Name("lastname"), user.Lastname);
-            Type(By.Name("nickname"), user.Nickname);
+            Random rnd = new Random();
+            int value = rnd.Next(1, 20);
+
+            Type(By.Name("firstname"), user.Firstname + "_" + value);
+            Type(By.Name("lastname"), user.Lastname + "_" + value);
+            //Type(By.Name("middlename"), user.Midname + "_" + value);
+            //Type(By.Name("nickname"), user.Nickname + "_" + value);
 
             return this;
         }

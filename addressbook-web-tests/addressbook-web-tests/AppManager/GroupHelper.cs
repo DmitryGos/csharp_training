@@ -32,8 +32,17 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GotoGroupsPage();
 
+            if (! IsGroupExists())
+            {
+                GroupData group = new GroupData("GroupName");
+                group.Header = "GroupHeader";
+                group.Footer = "GroupFooter";
+
+                Create(group);
+            }
+
             SelectGroup(p);
-            InitGroupMotification();
+            InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
             ReturnToGroupsPage();
@@ -45,11 +54,21 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GotoGroupsPage();
 
+            if (!IsGroupExists())
+            {
+                GroupData group = new GroupData("GroupName");
+                group.Header = "GroupHeader";
+                group.Footer = "GroupFooter";
+
+                Create(group);
+            }
+
             SelectGroup(index);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
         }
+
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -57,43 +76,44 @@ namespace WebAddressbookTests
         }
         public GroupHelper FillGroupForm(GroupData group)
         {
-            Type(By.Name("group_name"), group.Name);
-            Type(By.Name("group_header"), group.Header);
-            Type(By.Name("group_footer"), group.Footer);
+            Random rnd = new Random();
+            int value = rnd.Next(1, 20);
+
+            Type(By.Name("group_name"), group.Name + "_" + value);
+            Type(By.Name("group_header"), group.Header + "_" + value);
+            Type(By.Name("group_footer"), group.Footer + "_" + value);
             return this;
         }
-
+        public bool IsGroupExists()
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])"));
+        }
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
-
         public GroupHelper ReturnToGroupsPage()
         {
             driver.FindElement(By.LinkText("group page")).Click();
             return this;
         }
-
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
-
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
             return this;
         }
-
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
         }
-
-        public GroupHelper InitGroupMotification()
+        public GroupHelper InitGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
