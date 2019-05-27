@@ -12,6 +12,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
+            int index = 1;
+
+            app.Users.MakeSureAContactExists(index);
+
             app.Users.Remove(1);
         }
     }

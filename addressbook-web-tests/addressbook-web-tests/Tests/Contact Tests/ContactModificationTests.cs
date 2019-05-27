@@ -12,9 +12,12 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
+            int index = 1;
             UserData newData = new UserData("UnameNew", "UlastnameNew");
 
-            app.Users.Modify(1, newData);
+            app.Users.MakeSureAContactExists(index);
+
+            app.Users.Modify(index, newData);
         }
     }
 

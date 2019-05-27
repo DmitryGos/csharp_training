@@ -24,18 +24,9 @@ namespace WebAddressbookTests
 
             return this;
         }
-
         public ContactHelper Modify(int id, UserData newData)
         {
             manager.Navigator.GotoHomePage();
-
-            if (!IsContactExists(id))
-            {
-                UserData user = new UserData("Uname", "Ulastname");
-
-                Create(user);
-                manager.Navigator.GotoHomePage();
-            }
 
             InitContactModification(id);
             FillContactForm(newData);
@@ -43,18 +34,9 @@ namespace WebAddressbookTests
 
             return this;
         }
-
         public ContactHelper Remove(int id)
         {
             manager.Navigator.GotoHomePage();
-
-            if (! IsContactExists(id))
-            {
-                UserData user = new UserData("Uname", "Ulastname");
-
-                Create(user);
-                manager.Navigator.GotoHomePage();
-            }
 
             SelectContact(id);
             DeleteSelectedAccount();
@@ -62,11 +44,20 @@ namespace WebAddressbookTests
 
             return this;
         }
-        public bool IsContactExists(int id)
+        public bool DoesTheContactExist(int id)
         {
             return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + id + "]"));
         }
+        internal void MakeSureAContactExists(int index)
+        {
+            if (!DoesTheContactExist(index))
+            {
+                UserData user = new UserData("Uname", "Ulastname");
 
+                Create(user);
+                manager.Navigator.GotoHomePage();
+            }
+        }
         public ContactHelper SelectContact(int id)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + id + "]")).Click();
@@ -100,8 +91,6 @@ namespace WebAddressbookTests
 
             Type(By.Name("firstname"), user.Firstname + "_" + value);
             Type(By.Name("lastname"), user.Lastname + "_" + value);
-            //Type(By.Name("middlename"), user.Midname + "_" + value);
-            //Type(By.Name("nickname"), user.Nickname + "_" + value);
 
             return this;
         }
