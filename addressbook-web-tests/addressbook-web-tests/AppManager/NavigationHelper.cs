@@ -26,6 +26,7 @@ namespace WebAddressbookTests
                 return;
             }
             driver.Navigate().GoToUrl(baseURL + "/addressbook/");
+
         }
         public void GotoGroupsPage()
         {
@@ -39,13 +40,18 @@ namespace WebAddressbookTests
         }
         public void GotoContactAddingPage()
         {
-            if (driver.Url == baseURL + "/addressbook/edit.php" 
+            if (driver.Url == baseURL + "/addressbook/edit.php"
                 && IsElementPresent(By.Name("submit")))
             {
                 return;
             }
 
             driver.FindElement(By.LinkText("add new")).Click();
+        }
+        public void GotoContactsPage()
+        {
+            GotoHomePage();
+            bool result = IsElementPresent(By.CssSelector("input[value = 'Send e-Mail']"));
         }
 
     }

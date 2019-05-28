@@ -79,7 +79,7 @@
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="Tests\Contact Tests\ContactAddingTests.cs" />
-    <Compile Include="Model\UserData.cs" />
+    <Compile Include="Model\ContactData.cs" />
     <Compile Include="AppManager\ContactHelper.cs" />
   </ItemGroup>
   <ItemGroup>

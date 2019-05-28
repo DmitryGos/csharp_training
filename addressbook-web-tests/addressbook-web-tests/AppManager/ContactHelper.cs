@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -15,7 +16,7 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
-        public ContactHelper Create(UserData user)
+        public ContactHelper Create(ContactData user)
         {
             manager.Navigator.GotoContactAddingPage();
             SettingAdditionalUserData(user);
@@ -24,9 +25,27 @@ namespace WebAddressbookTests
 
             return this;
         }
-        public ContactHelper Modify(int id, UserData newData)
+
+        public List<ContactData> GetContactList()
         {
-            manager.Navigator.GotoHomePage();
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GotoContactsPage();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name = entry]"));
+
+            foreach (IWebElement element in elements)
+            {
+                var lastName = element.FindElement(By.XPath(".//td[2]"));
+                var firstName = element.FindElement(By.XPath(".//td[3]"));
+                contacts.Add(new ContactData(firstName.Text, lastName.Text));
+            }
+
+            return contacts;
+        }
+
+        public ContactHelper Modify(int id, ContactData newData)
+        {
+            manager.Navigator.GotoContactsPage();
 
             InitContactModification(id);
             FillContactForm(newData);
@@ -34,33 +53,37 @@ namespace WebAddressbookTests
 
             return this;
         }
-        public ContactHelper Remove(int id)
+        public ContactHelper Remove(int index)
         {
-            manager.Navigator.GotoHomePage();
+            manager.Navigator.GotoContactsPage();
 
-            SelectContact(id);
+            SelectContact(index);
             DeleteSelectedAccount();
             ConfirmContactRemoval();
 
+            Thread.Sleep(1000);
+
             return this;
         }
-        public bool DoesTheContactExist(int id)
+        public bool DoesTheContactExist(int index)
         {
-            return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + id + "]"));
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]"));
         }
-        internal void MakeSureAContactExists(int index)
+        public ContactHelper MakeSureAContactExists(int index)
         {
             if (!DoesTheContactExist(index))
             {
-                UserData user = new UserData("Uname", "Ulastname");
+                ContactData user = new ContactData("Uname", "Ulastname");
 
                 Create(user);
-                manager.Navigator.GotoHomePage();
+                manager.Navigator.GotoContactsPage();
             }
+
+            return this;
         }
-        public ContactHelper SelectContact(int id)
+        public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + id + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
 
             return this;
         }
@@ -78,19 +101,19 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
-        public ContactHelper SettingAdditionalUserData(UserData user)
+        public ContactHelper SettingAdditionalUserData(ContactData user)
         {
-            user.Midname = "UMidname1";
-            user.Nickname = "UNickName1";
+            user.MidName = "UMidname1";
+            user.NickName = "UNickName1";
             return this;
         }
-        public ContactHelper FillContactForm(UserData user)
+        public ContactHelper FillContactForm(ContactData user)
         {
             Random rnd = new Random();
             int value = rnd.Next(1, 20);
 
-            Type(By.Name("firstname"), user.Firstname + "_" + value);
-            Type(By.Name("lastname"), user.Lastname + "_" + value);
+            Type(By.Name("firstname"), user.FirstName + "_" + value);
+            Type(By.Name("lastname"), user.LastName + "_" + value);
 
             return this;
         }

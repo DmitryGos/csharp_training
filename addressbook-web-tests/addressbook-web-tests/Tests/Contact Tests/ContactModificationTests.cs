@@ -13,11 +13,11 @@ namespace WebAddressbookTests
         public void ContactModificationTest()
         {
             int index = 1;
-            UserData newData = new UserData("UnameNew", "UlastnameNew");
+            ContactData newData = new ContactData("UnameNew", "UlastnameNew");
 
-            app.Users.MakeSureAContactExists(index);
+            app.Contacts.MakeSureAContactExists(index);
 
-            app.Users.Modify(index, newData);
+            app.Contacts.Modify(index, newData);
         }
     }
 

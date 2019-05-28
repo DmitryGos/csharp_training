@@ -23,17 +23,16 @@ namespace WebAddressbookTests
             {
                 return false;
             }
-        if (object.ReferenceEquals(this,other))
+        if (object.ReferenceEquals(this, other))
             {
                 return true;
             }
             return Name == other.Name;
         }
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             return Name.GetHashCode();
         }
-
         public string Name
         {
             get
