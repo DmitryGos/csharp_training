@@ -23,6 +23,8 @@ namespace WebAddressbookTests
 
             app.Groups.Remove(index);
 
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupsCount());
+
             //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
