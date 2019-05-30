@@ -28,6 +28,16 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public GroupData GenerateGroupData()
+        {
+            int rnd = new Random().Next(1, 50);
+
+            GroupData group = new GroupData("GroupName" + rnd);
+            group.Header = "GroupHeader" + rnd;
+            group.Footer = "GroupFooter" + rnd;
+
+            return group;
+        }
         public List<GroupData> GetGroupList()
         {
             List<GroupData> groups = new List<GroupData>();
@@ -55,7 +65,6 @@ namespace WebAddressbookTests
 
             return this;
         }
-
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GotoGroupsPage();
@@ -73,12 +82,9 @@ namespace WebAddressbookTests
         }
         public GroupHelper FillGroupForm(GroupData group)
         {
-            Random rnd = new Random();
-            int value = rnd.Next(1, 20);
-
-            Type(By.Name("group_name"), group.Name + "_" + value);
-            Type(By.Name("group_header"), group.Header + "_" + value);
-            Type(By.Name("group_footer"), group.Footer + "_" + value);
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
         public bool DoesAGroupExist()
@@ -89,9 +95,7 @@ namespace WebAddressbookTests
         {
             if (!DoesAGroupExist())
             {
-                GroupData group = new GroupData("GroupName");
-                group.Header = "GroupHeader";
-                group.Footer = "GroupFooter";
+                GroupData group = GenerateGroupData();
 
                 Create(group);
             }

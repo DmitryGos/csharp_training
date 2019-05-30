@@ -16,16 +16,21 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
-        public ContactHelper Create(ContactData user)
+        public ContactHelper Create(ContactData contact)
         {
             manager.Navigator.GotoContactAddingPage();
-            SettingAdditionalUserData(user);
-            FillContactForm(user);
+            FillContactForm(contact);
             ConfirmContactCreation();
 
             return this;
         }
+        public ContactData GenerateContactData()
+        {
+            int rnd = new Random().Next(1, 50);
+            ContactData contact = new ContactData("Uname" + rnd, "Ulastname" + rnd);
 
+            return contact;
+        }
         public List<ContactData> GetContactList()
         {
             List<ContactData> contacts = new List<ContactData>();
@@ -73,9 +78,9 @@ namespace WebAddressbookTests
         {
             if (!DoesTheContactExist(index))
             {
-                ContactData user = new ContactData("Uname", "Ulastname");
+                ContactData contact = GenerateContactData();
 
-                Create(user);
+                Create(contact);
                 manager.Navigator.GotoContactsPage();
             }
 
@@ -98,22 +103,13 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index + 1) + "]")).Click();
             return this;
         }
-        public ContactHelper SettingAdditionalUserData(ContactData user)
+        public ContactHelper FillContactForm(ContactData contact)
         {
-            user.MidName = "UMidname1";
-            user.NickName = "UNickName1";
-            return this;
-        }
-        public ContactHelper FillContactForm(ContactData user)
-        {
-            Random rnd = new Random();
-            int value = rnd.Next(1, 20);
-
-            Type(By.Name("firstname"), user.FirstName + "_" + value);
-            Type(By.Name("lastname"), user.LastName + "_" + value);
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("lastname"), contact.LastName);
 
             return this;
         }

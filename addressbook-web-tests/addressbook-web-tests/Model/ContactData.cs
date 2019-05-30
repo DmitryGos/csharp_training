@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactData : IEquatable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstName;
         private string lastName;
-        private string midName = "";
-        private string nickName = "";
 
         public ContactData(string firstName, string lastName)
         {
@@ -39,6 +37,26 @@ namespace WebAddressbookTests
         {
             return lastName.GetHashCode();
         }
+        public override string ToString()
+        {
+            return "Full Name = " + LastName + " " + FirstName;
+        }
+        public int CompareTo(ContactData other)
+        {
+            //Если объект null, возвращаем 1 (заведомо больше)
+            if (object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            //Если фамилии равны, сравниваем имена
+            if (LastName.CompareTo(other.LastName) == 0)
+            {
+                return FirstName.CompareTo(other.FirstName);
+            }
+            //Сравниваем фамилии
+            return LastName.CompareTo(other.LastName);
+        }
+
         public string FirstName
         {
             get
@@ -50,17 +68,6 @@ namespace WebAddressbookTests
                 firstName = value;
             }
         }
-        public string MidName
-        {
-            get
-            {
-                return midName;
-            }
-            set
-            {
-                midName = value;
-            }
-        }
         public string LastName
         {
             get
@@ -70,17 +77,6 @@ namespace WebAddressbookTests
             set
             {
                 lastName = value;
-            }
-        }
-        public string NickName
-        {
-            get
-            {
-                return nickName;
-            }
-            set
-            {
-                nickName = value;
             }
         }
     }

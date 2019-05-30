@@ -13,13 +13,31 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModiticationTest()
         {
+            int index = 0;
+
+            //Выполняем проверку существования хотя бы одной группы (если не существует - создаём)
             app.Groups.MakeSureAGroupExists();
 
-            GroupData newData = new GroupData("NewGroupName");
+            //Генерируем данные для новой группы
+            GroupData newData = app.Groups.GenerateGroupData();
             newData.Header = null;
             newData.Footer = null;
 
-            app.Groups.Modify(0, newData);
+            //Считываем текущий список групп
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Modify(index, newData);
+
+            //Считываем новый список групп
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            //Меняем данные группы в старом списке
+            oldGroups[index].Name = newData.Name;
+
+            oldGroups.Sort();
+            newGroups.Sort();
+
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

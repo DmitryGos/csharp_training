@@ -33,7 +33,6 @@ namespace WebAddressbookTests
             groupHelper = new GroupHelper(this);
             userHelper = new ContactHelper(this);
         }
-
         ~ApplicationManager()
         {
             try

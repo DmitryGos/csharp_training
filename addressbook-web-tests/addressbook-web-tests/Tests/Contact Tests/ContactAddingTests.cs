@@ -13,13 +13,24 @@ namespace WebAddressbookTests
         [Test]
         public void ContactAddingTest()
         {
-            ContactData user = new ContactData("Uname", "Ulastname");
+            //Генерируем данные для нового контакта
+            ContactData contact = app.Contacts.GenerateContactData();
+
+            //Считываем текущий список контактов
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.Create(user);
+            app.Contacts.Create(contact);
 
+            //Считываем новый список контактов
             List<ContactData> newContacts = app.Contacts.GetContactList();
-            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
+
+            //Добавляем данные нового контакта в старый список
+            oldContacts.Add(contact);
+
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }

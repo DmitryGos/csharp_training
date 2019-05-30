@@ -13,44 +13,71 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("GroupName");
-            group.Header = "GroupHeader";
-            group.Footer = "GroupFooter";
+            //Генерируем данные для новой группы
+            GroupData group = app.Groups.GenerateGroupData();
 
+            //Считываем текущий список групп
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
 
+            //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+            
+            //Добавляем данные новой группы в старый список
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+
+            Assert.AreEqual(oldGroups, newGroups);
         }
         [Test]
         public void EmptyGroupCreationTest()
         {
+            //Генерируем данные для новой группы
             GroupData group = new GroupData("");
             group.Header = "";
             group.Footer = "";
 
+            //Считываем текущий список групп
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
 
+            //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
+            //Добавляем данные новой группы в старый список
+            oldGroups.Add(group);
+
+            oldGroups.Sort();
+            newGroups.Sort();
+
+            Assert.AreEqual(oldGroups, newGroups);
         }
-        [Test]
+        //[Test]
         public void BadNameGroupCreationTest()
         {
+            //Генерируем данные для новой группы
             GroupData group = new GroupData("a'a");
             group.Header = "";
             group.Footer = "";
 
+            //Считываем текущий список групп
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
             app.Groups.Create(group);
 
+            //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
+            //Добавляем данные новой группы в старый список
+            oldGroups.Add(group);
+
+            oldGroups.Sort();
+            newGroups.Sort();
+
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }
