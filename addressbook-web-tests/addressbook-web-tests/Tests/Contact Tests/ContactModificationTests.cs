@@ -26,6 +26,8 @@ namespace WebAddressbookTests
 
             app.Contacts.Modify(index, newData);
 
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GeContactsCount());
+
             //Считываем новый список контактов
             List<ContactData> newContacts = app.Contacts.GetContactList();
 

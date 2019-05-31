@@ -21,6 +21,7 @@ namespace WebAddressbookTests
             manager.Navigator.GotoContactAddingPage();
             FillContactForm(contact);
             ConfirmContactCreation();
+            manager.Navigator.GotoHomePage();
 
             return this;
         }
@@ -47,6 +48,10 @@ namespace WebAddressbookTests
 
             return contacts;
         }
+        public int GeContactsCount()
+        {
+            return driver.FindElements(By.CssSelector("tr[name = entry]")).Count;
+        }
 
         public ContactHelper Modify(int id, ContactData newData)
         {
@@ -55,6 +60,7 @@ namespace WebAddressbookTests
             InitContactModification(id);
             FillContactForm(newData);
             ConfirmContactModification();
+            manager.Navigator.GotoHomePage();
 
             return this;
         }

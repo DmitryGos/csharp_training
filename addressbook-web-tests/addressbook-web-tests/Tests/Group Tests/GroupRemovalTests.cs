@@ -28,10 +28,16 @@ namespace WebAddressbookTests
             //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
+            GroupData toBeRemoved = oldGroups[index];
             //Уаляем заданную группу из списка
             oldGroups.RemoveAt(index);
 
             Assert.AreEqual(oldGroups, newGroups);
+
+            foreach(GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+            }
         }
     }
 }
