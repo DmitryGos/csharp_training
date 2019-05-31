@@ -23,6 +23,7 @@ namespace WebAddressbookTests
 
             //Считываем текущий список контактов
             List<ContactData> oldContacts = app.Contacts.GetContactList();
+            ContactData oldData = oldContacts[0];
 
             app.Contacts.Modify(index, newData);
 
@@ -40,6 +41,14 @@ namespace WebAddressbookTests
 
             Assert.AreEqual(oldContacts, newContacts);
 
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Id == oldData.Id)
+                {
+                    Assert.AreEqual(oldData.LastName, contact.LastName);
+                    Assert.AreEqual(oldData.FirstName, contact.FirstName);
+                }
+            }
         }
     }
 

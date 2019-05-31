@@ -43,7 +43,9 @@ namespace WebAddressbookTests
             {
                 var lastName = element.FindElement(By.XPath(".//td[2]"));
                 var firstName = element.FindElement(By.XPath(".//td[3]"));
-                contacts.Add(new ContactData(firstName.Text, lastName.Text));
+                contacts.Add(new ContactData(firstName.Text, lastName.Text){
+                    Id = element.FindElement(By.TagName("input")).GetAttribute("id")
+                });
             }
 
             return contacts;

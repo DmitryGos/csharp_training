@@ -28,10 +28,17 @@ namespace WebAddressbookTests
             //Считываем новый список контактов
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
+            ContactData toBeRemoved = oldContacts[index];
             //Уаляем контакт из списка
             oldContacts.RemoveAt(index);
 
             Assert.AreEqual(oldContacts, newContacts);
+
+            foreach (ContactData contact in newContacts)
+            {
+                Assert.AreNotEqual(toBeRemoved.Id, contact.Id);
+            }
+
         }
     }
 }

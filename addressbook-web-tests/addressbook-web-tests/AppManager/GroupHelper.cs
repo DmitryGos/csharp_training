@@ -39,6 +39,7 @@ namespace WebAddressbookTests
             return group;
         }
         private List<GroupData> groupCache = null;
+
         public List<GroupData> GetGroupList()
         {
             if (groupCache == null)
