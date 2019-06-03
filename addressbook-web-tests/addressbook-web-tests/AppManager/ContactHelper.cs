@@ -23,6 +23,8 @@ namespace WebAddressbookTests
             ConfirmContactCreation();
             manager.Navigator.GotoHomePage();
 
+            contactCache = null;
+
             return this;
         }
         public ContactData GenerateContactData()
@@ -32,23 +34,27 @@ namespace WebAddressbookTests
 
             return contact;
         }
+
+        private List<ContactData> contactCache = null;
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GotoContactsPage();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name = entry]"));
-
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                var lastName = element.FindElement(By.XPath(".//td[2]"));
-                var firstName = element.FindElement(By.XPath(".//td[3]"));
-                contacts.Add(new ContactData(firstName.Text, lastName.Text){
-                    Id = element.FindElement(By.TagName("input")).GetAttribute("id")
-                });
-            }
+                contactCache = new List<ContactData>();
+                manager.Navigator.GotoContactsPage();
 
-            return contacts;
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("tr[name = entry]"));
+
+                foreach (IWebElement element in elements)
+                {
+                    var lastName = element.FindElement(By.XPath(".//td[2]"));
+                    var firstName = element.FindElement(By.XPath(".//td[3]"));
+                    contactCache.Add(new ContactData(firstName.Text, lastName.Text){
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("id")
+                    });
+                }
+            }
+            return new List<ContactData>(contactCache);
         }
         public int GeContactsCount()
         {
@@ -64,6 +70,8 @@ namespace WebAddressbookTests
             ConfirmContactModification();
             manager.Navigator.GotoHomePage();
 
+            contactCache = null;
+
             return this;
         }
         public ContactHelper Remove(int index)
@@ -75,6 +83,8 @@ namespace WebAddressbookTests
             ConfirmContactRemoval();
 
             Thread.Sleep(1000);
+
+            contactCache = null;
 
             return this;
         }

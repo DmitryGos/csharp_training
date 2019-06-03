@@ -38,8 +38,8 @@ namespace WebAddressbookTests
 
             return group;
         }
-        private List<GroupData> groupCache = null;
 
+        private List<GroupData> groupCache = null;
         public List<GroupData> GetGroupList()
         {
             if (groupCache == null)
@@ -55,9 +55,7 @@ namespace WebAddressbookTests
                         Id = element.FindElement(By.TagName("input")).GetAttribute("value")
                     });
                 }
-
             }
-
             return new List<GroupData>(groupCache);
         }
         public int GetGroupsCount()
