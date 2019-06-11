@@ -185,13 +185,13 @@ namespace WebAddressbookTests
 
             return new ContactData(firstName, lastName)
             {
-                Address = address,
-                HomePhone = homePhone,
-                MobilePhone = mobilePhone,
-                WorkPhone = workPhone,
-                Email = email,
-                Email2 = email2,
-                Email3 = email3
+                Address = address.Trim(),
+                HomePhone = homePhone.Trim(),
+                MobilePhone = mobilePhone.Trim(),
+                WorkPhone = workPhone.Trim(),
+                Email = email.Trim(),
+                Email2 = email2.Trim(),
+                Email3 = email3.Trim()
             };
         }
         public int GetNumberOfSearchResults()
