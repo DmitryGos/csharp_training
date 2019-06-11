@@ -114,7 +114,7 @@ namespace WebAddressbookTests
                     if (Email3 != null || Email3 != "")
                     { allEmails = (allEmails + "\r\n" + Email3).Trim(); }
 
-                    return allEmails.Trim();
+                    return allEmails.Trim().Replace("\r\n\r\n", "\r\n");
                 }
             }
 

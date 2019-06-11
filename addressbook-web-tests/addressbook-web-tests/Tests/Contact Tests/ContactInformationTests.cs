@@ -14,14 +14,22 @@ namespace WebAddressbookTests
         public void ContactInformationTest()
         {
             int index = 0;
-            ContactData fromTable = app.Contacts.GetContactInformationFromTable(index);
-            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(index);
 
-            // verification
-            Assert.AreEqual(fromTable, fromForm);
-            Assert.AreEqual(fromTable.Address, fromForm.Address);
-            Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
-            Assert.AreEqual(fromTable.AllEmails, fromForm.AllEmails);
+            ContactData fromTable = app.Contacts.GetContactInformationFromTable(index);
+            ContactData fromEditForm = app.Contacts.GetContactInformationFromEditForm(index);
+
+            // verification Table & Edit Form
+            Assert.AreEqual(fromTable, fromEditForm);
+            Assert.AreEqual(fromTable.Address, fromEditForm.Address);
+            Assert.AreEqual(fromTable.AllPhones, fromEditForm.AllPhones);
+            Assert.AreEqual(fromTable.AllEmails, fromEditForm.AllEmails);
+
+            string fromDetails = app.Contacts.GetContactInformationFromDetailsForm(index);
+            string gluedData = app.Contacts.GlueDataFromEditForm(fromEditForm);
+
+            // verification Details & Edit Form
+            Assert.AreEqual(fromDetails, gluedData);
+
         }
     }
 }
