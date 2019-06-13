@@ -135,6 +135,43 @@ namespace WebAddressbookTests
             Type(By.Name("firstname"), contact.FirstName);
             Type(By.Name("lastname"), contact.LastName);
 
+            if (contact.MiddleName != null)
+            {
+                Type(By.Name("middlename"), contact.MiddleName);
+            }
+            if (contact.NickName != null)
+            {
+                Type(By.Name("nickname"), contact.NickName);
+            }
+            if (contact.Address != null)
+            {
+                Type(By.Name("address"), contact.Address);
+            }
+            if (contact.HomePhone != null)
+            {
+                Type(By.Name("home"), contact.HomePhone);
+            }
+            if (contact.WorkPhone != null)
+            {
+                Type(By.Name("work"), contact.WorkPhone);
+            }
+            if (contact.MobilePhone != null)
+            {
+                Type(By.Name("mobile"), contact.MobilePhone);
+            }
+            if (contact.Email != null)
+            {
+                Type(By.Name("email"), contact.Email);
+            }
+            if (contact.Email2 != null)
+            {
+                Type(By.Name("email2"), contact.Email2);
+            }
+            if (contact.Email3 != null)
+            {
+                Type(By.Name("email3"), contact.Email3);
+            }
+
             return this;
         }
         public ContactHelper ConfirmContactCreation()
