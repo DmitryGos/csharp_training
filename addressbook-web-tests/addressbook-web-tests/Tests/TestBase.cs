@@ -20,13 +20,11 @@ namespace WebAddressbookTests
         public static string GenerateRandomString(int max)
         {
             int l = Convert.ToInt32(rnd.NextDouble() * max);
-            char[] letters = "abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%^&*()-_=+".ToCharArray();
 
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < l; i++)
             {
-                //builder.Append(Convert.ToChar(33 + Convert.ToInt32(rnd.NextDouble() * 122)));
-                builder.Append(letters[rnd.Next(letters.Length)]);
+                builder.Append(Convert.ToChar(33 + Convert.ToInt32(rnd.NextDouble() * 65)));
             }
 
             return builder.ToString();
@@ -35,13 +33,11 @@ namespace WebAddressbookTests
         public static string GenerateRandomNumber(int max)
         {
             int l = Convert.ToInt32(rnd.NextDouble() * max);
-            char[] letters = "1234567890".ToCharArray();
 
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < l; i++)
             {
-                //builder.Append(Convert.ToChar(33 + Convert.ToInt32(rnd.NextDouble() * 122)));
-                builder.Append(letters[rnd.Next(letters.Length)]);
+                builder.Append(Convert.ToChar(48 + Convert.ToInt32(rnd.NextDouble() * 9)));
             }
 
             return builder.ToString();
