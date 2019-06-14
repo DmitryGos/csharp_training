@@ -20,11 +20,13 @@ namespace WebAddressbookTests
         public static string GenerateRandomString(int max)
         {
             int l = Convert.ToInt32(rnd.NextDouble() * max);
-
+            char[] letters = "abcdefjhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890~!@#$%^&*()-_=+".ToCharArray();
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < l; i++)
             {
-                builder.Append(Convert.ToChar(33 + Convert.ToInt32(rnd.NextDouble() * 65)));
+                //builder.Append(Convert.ToChar(33 + Convert.ToInt32(rnd.NextDouble() * 65)));
+                builder.Append(letters[rnd.Next(letters.Length)]);
+
             }
 
             return builder.ToString();
