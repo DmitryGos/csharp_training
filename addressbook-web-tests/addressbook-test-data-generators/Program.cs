@@ -74,9 +74,15 @@ namespace addressbook_test_data_generators
                 {
                     contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
                     {
-                        NickName= TestBase.GenerateRandomString(10),
+                        MiddleName = TestBase.GenerateRandomString(30),
+                        NickName = TestBase.GenerateRandomString(30),
+                        Address = TestBase.GenerateRandomString(70),
+                        HomePhone = TestBase.GenerateRandomNumber(11),
+                        MobilePhone = TestBase.GenerateRandomNumber(11),
+                        WorkPhone = TestBase.GenerateRandomNumber(11),
                         Email = TestBase.GenerateRandomString(20),
-                        MobilePhone = TestBase.GenerateRandomNumber(10)
+                        Email2 = TestBase.GenerateRandomString(20),
+                        Email3 = TestBase.GenerateRandomString(20)
                     });
                 }
                 StreamWriter writer = new StreamWriter(filename);

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using NUnit.Framework;
 
@@ -30,8 +34,19 @@ namespace WebAddressbookTests
             }
             return contacts;
         }
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            return (List<ContactData>)
+                new XmlSerializer(typeof(List<ContactData>))
+                .Deserialize(new StreamReader(TestContext.CurrentContext.TestDirectory + @"\contacts.xml"));
+        }
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(TestContext.CurrentContext.TestDirectory + @"\contacts.json"));
+        }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactAddingTest(ContactData contact)
         {
             //Генерируем данные для нового контакта

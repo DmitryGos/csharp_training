@@ -57,7 +57,6 @@ namespace WebAddressbookTests
             return JsonConvert.DeserializeObject<List<GroupData>>(
                 File.ReadAllText(TestContext.CurrentContext.TestDirectory + @"\groups.json"));
         }
-
         public static IEnumerable<GroupData> GroupDataFromExcelFile()
         {
             List<GroupData> groups = new List<GroupData>();
