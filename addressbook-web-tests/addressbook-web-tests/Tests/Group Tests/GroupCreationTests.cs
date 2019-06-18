@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
@@ -83,7 +84,7 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             //Генерируем данные для новой группы
@@ -98,7 +99,7 @@ namespace WebAddressbookTests
 
             //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            
+
             //Добавляем данные новой группы в старый список
             oldGroups.Add(group);
             oldGroups.Sort();
@@ -121,7 +122,7 @@ namespace WebAddressbookTests
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupsCount());
-            
+
             //Считываем новый список групп
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
@@ -130,5 +131,22 @@ namespace WebAddressbookTests
 
             Assert.AreEqual(oldGroups, newGroups);
         }
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine("From UI = " + end.Subtract(start));
+
+            start = DateTime.Now;
+            AddressBookDB db = new AddressBookDB();
+            List<GroupData> fromDb = (from g in db.Groups select g).ToList();
+            db.Close();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine("From DB = " + end.Subtract(start));
+        }
     }
 }
+
