@@ -24,15 +24,15 @@ namespace WebAddressbookTests
             newData.Footer = null;
 
             //Считываем текущий список групп
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData oldData = oldGroups[0];
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData oldData = oldGroups[index];
 
-            app.Groups.Modify(index, newData);
+            app.Groups.Modify(oldData.Id, newData);
 
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupsCount());
 
             //Считываем новый список групп
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
 
             //Меняем данные группы в старом списке
             oldGroups[index].Name = newData.Name;

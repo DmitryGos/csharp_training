@@ -91,14 +91,14 @@ namespace WebAddressbookTests
             //group = app.Groups.GenerateGroupData();
 
             //Считываем текущий список групп
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
 
             app.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupsCount());
 
             //Считываем новый список групп
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
 
             //Добавляем данные новой группы в старый список
             oldGroups.Add(group);

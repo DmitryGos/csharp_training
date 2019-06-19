@@ -19,16 +19,16 @@ namespace WebAddressbookTests
             app.Groups.MakeSureAGroupExists();
 
             //Считываем текущий список групп
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData toBeRemoved = oldGroups[index];
 
-            app.Groups.Remove(index);
+            app.Groups.Remove(toBeRemoved);
 
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupsCount());
 
             //Считываем новый список групп
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
 
-            GroupData toBeRemoved = oldGroups[index];
             //Уаляем заданную группу из списка
             oldGroups.RemoveAt(index);
 

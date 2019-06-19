@@ -27,7 +27,6 @@ namespace WebAddressbookTests
 
             return this;
         }
-
         public GroupData GenerateGroupData()
         {
             int rnd = new Random().Next(1, 50);
@@ -38,7 +37,6 @@ namespace WebAddressbookTests
 
             return group;
         }
-
         private List<GroupData> groupCache = null;
         public List<GroupData> GetGroupList()
         {
@@ -91,6 +89,19 @@ namespace WebAddressbookTests
 
             return this;
         }
+        public GroupHelper Modify(string id, GroupData newData)
+        {
+            manager.Navigator.GotoGroupsPage();
+
+            SelectGroup(id);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupsPage();
+
+            return this;
+        }
+
         public GroupHelper Remove(int index)
         {
             manager.Navigator.GotoGroupsPage();
@@ -100,13 +111,21 @@ namespace WebAddressbookTests
             ReturnToGroupsPage();
             return this;
         }
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GotoGroupsPage();
 
+            SelectGroup(group.Id);
+            RemoveGroup();
+            ReturnToGroupsPage();
+            return this;
+
+        }
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
             return this;
         }
-
         public GroupHelper FillGroupForm(GroupData group)
         {
             Type(By.Name("group_name"), group.Name);
@@ -142,7 +161,12 @@ namespace WebAddressbookTests
         }
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1)+ "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+        public GroupHelper SelectGroup(string id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
             return this;
         }
         public GroupHelper RemoveGroup()
