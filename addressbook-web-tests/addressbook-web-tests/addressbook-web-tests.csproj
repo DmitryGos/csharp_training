@@ -86,9 +86,11 @@
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="AppManager\ApplicationManager.cs" />
     <Compile Include="Model\AddressBookDB.cs" />
+    <Compile Include="Model\GroupContactRelation.cs" />
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="AppManager\GroupHelper.cs" />
     <Compile Include="Random.cs" />
+    <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\Base Tests\AuthTestBase.cs" />
     <Compile Include="Tests\Base Tests\GroupTestBase.cs" />
     <Compile Include="Tests\Contact Tests\ContactInformationTests.cs" />
