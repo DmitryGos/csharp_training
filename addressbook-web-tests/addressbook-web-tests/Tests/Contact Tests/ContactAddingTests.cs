@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactAddingTests : AuthTestBase
+    public class ContactAddingTests : ContactTestBase
     {
         public static IEnumerable<ContactData> RandomGroupDataProvider()
         {
@@ -53,14 +53,14 @@ namespace WebAddressbookTests
             //ContactData contact = app.Contacts.GenerateContactData();
 
             //Считываем текущий список контактов
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
 
             app.Contacts.Create(contact);
 
-            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GeContactsCount());
-
             //Считываем новый список контактов
             List<ContactData> newContacts = app.Contacts.GetContactList();
+
+            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
 
             //Добавляем данные нового контакта в старый список
             oldContacts.Add(contact);

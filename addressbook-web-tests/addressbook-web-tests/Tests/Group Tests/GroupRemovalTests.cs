@@ -16,7 +16,11 @@ namespace WebAddressbookTests
             int index = 0;
 
             //Выполняем проверку существования хотя бы одной группы (если не существует - создаём)
-            app.Groups.MakeSureAGroupExists();
+            //app.Groups.MakeSureAGroupExists();
+            if (GroupData.GetAll().Count == 0)
+            {
+                app.Groups.Create(app.Groups.GenerateGroupData());
+            }
 
             //Считываем текущий список групп
             List<GroupData> oldGroups = GroupData.GetAll();
@@ -24,10 +28,10 @@ namespace WebAddressbookTests
 
             app.Groups.Remove(toBeRemoved);
 
-            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupsCount());
-
             //Считываем новый список групп
             List<GroupData> newGroups = GroupData.GetAll();
+
+            Assert.AreEqual(oldGroups.Count - 1, newGroups.Count);
 
             //Уаляем заданную группу из списка
             oldGroups.RemoveAt(index);

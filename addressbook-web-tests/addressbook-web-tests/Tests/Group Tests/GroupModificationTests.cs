@@ -16,7 +16,11 @@ namespace WebAddressbookTests
             int index = 0;
 
             //Выполняем проверку существования хотя бы одной группы (если не существует - создаём)
-            app.Groups.MakeSureAGroupExists();
+            //app.Groups.MakeSureAGroupExists();
+            if (GroupData.GetAll().Count == 0)
+            {
+                app.Groups.Create(app.Groups.GenerateGroupData());
+            }
 
             //Генерируем данные для новой группы
             GroupData newData = app.Groups.GenerateGroupData();
@@ -29,10 +33,10 @@ namespace WebAddressbookTests
 
             app.Groups.Modify(oldData.Id, newData);
 
-            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupsCount());
-
             //Считываем новый список групп
             List<GroupData> newGroups = GroupData.GetAll();
+
+            Assert.AreEqual(oldGroups.Count, newGroups.Count);
 
             //Меняем данные группы в старом списке
             oldGroups[index].Name = newData.Name;

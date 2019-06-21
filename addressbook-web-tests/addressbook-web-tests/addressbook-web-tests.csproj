@@ -92,6 +92,7 @@
     <Compile Include="Random.cs" />
     <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\Base Tests\AuthTestBase.cs" />
+    <Compile Include="Tests\Base Tests\ContactTestBase.cs" />
     <Compile Include="Tests\Base Tests\GroupTestBase.cs" />
     <Compile Include="Tests\Contact Tests\ContactInformationTests.cs" />
     <Compile Include="Tests\Contact Tests\ContactModificationTests.cs" />

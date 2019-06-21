@@ -63,8 +63,10 @@ namespace WebAddressbookTests
             List<GroupData> groups = new List<GroupData>();
             //string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "groups.xlsx");
 
-            Excel.Application app = new Excel.Application();
-            app.Visible = true;
+            Excel.Application app = new Excel.Application
+            {
+                Visible = true
+            };
             Excel.Workbook wb = app.Workbooks.Open(TestContext.CurrentContext.TestDirectory + @"\groups.xlsx");
             Excel.Worksheet sheet = wb.ActiveSheet;
 
@@ -84,7 +86,7 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
+        [Test, TestCaseSource("RandomGroupDataProvider")]
         public void GroupCreationTest(GroupData group)
         {
             //Генерируем данные для новой группы
@@ -95,10 +97,10 @@ namespace WebAddressbookTests
 
             app.Groups.Create(group);
 
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupsCount());
-
             //Считываем новый список групп
             List<GroupData> newGroups = GroupData.GetAll();
+
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count());
 
             //Добавляем данные новой группы в старый список
             oldGroups.Add(group);
@@ -112,9 +114,11 @@ namespace WebAddressbookTests
         public void BadNameGroupCreationTest()
         {
             //Генерируем данные для новой группы
-            GroupData group = new GroupData("a'a");
-            group.Header = "";
-            group.Footer = "";
+            GroupData group = new GroupData("a'a")
+            {
+                Header = "",
+                Footer = ""
+            };
 
             //Считываем текущий список групп
             List<GroupData> oldGroups = app.Groups.GetGroupList();

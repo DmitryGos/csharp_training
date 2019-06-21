@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactModificationTests : AuthTestBase
+    public class ContactModificationTests : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
@@ -16,21 +16,25 @@ namespace WebAddressbookTests
             int index = 0;
 
             //Выполняем проверку существования хотя бы одной группы (если не существует - создаём)
-            app.Contacts.MakeSureAContactExists(index);
+            //app.Contacts.MakeSureAContactExists(index);
+            if (ContactData.GetAll().Count == 0)
+            {
+                app.Contacts.Create(app.Contacts.GenerateContactData());
+            }
 
             //Генерируем данные для нового контакта
             ContactData newData = app.Contacts.GenerateContactData();
 
             //Считываем текущий список контактов
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             ContactData oldData = oldContacts[0];
 
             app.Contacts.Modify(index, newData);
 
-            Assert.AreEqual(oldContacts.Count, app.Contacts.GeContactsCount());
-
             //Считываем новый список контактов
             List<ContactData> newContacts = app.Contacts.GetContactList();
+
+            Assert.AreEqual(oldContacts.Count, newContacts.Count);
 
             //Меняем данные контакта в старом списке
             oldContacts[index].FirstName = newData.FirstName;

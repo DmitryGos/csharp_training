@@ -31,9 +31,10 @@ namespace WebAddressbookTests
         {
             int rnd = new Random().Next(1, 50);
 
-            GroupData group = new GroupData("GroupName" + rnd);
-            group.Header = "GroupHeader" + rnd;
-            group.Footer = "GroupFooter" + rnd;
+            GroupData group = new GroupData("GroupName" + rnd) {
+                Header = "GroupHeader" + rnd,
+                Footer = "GroupFooter" + rnd
+            };
 
             return group;
         }
