@@ -90,6 +90,7 @@
     <Compile Include="Model\GroupData.cs" />
     <Compile Include="AppManager\GroupHelper.cs" />
     <Compile Include="Random.cs" />
+    <Compile Include="Tests\RemovingContactFromGroupTests.cs" />
     <Compile Include="Tests\AddingContactToGroupTests.cs" />
     <Compile Include="Tests\Base Tests\AuthTestBase.cs" />
     <Compile Include="Tests\Base Tests\ContactTestBase.cs" />
