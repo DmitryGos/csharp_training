@@ -141,7 +141,12 @@ namespace WebAddressbookTests
         {
             foreach (ContactData contact in ContactData.GetAll())
             {
-                System.Console.Out.WriteLine(contact.Deprecated);
+                System.Console.Out.WriteLine("Contact: " + contact + "\nGroups:");
+                foreach (GroupData group in contact.GetGroups())
+                {
+                    System.Console.Out.WriteLine("--" + group.Name);
+                }
+                System.Console.Out.WriteLine("");
             }
         }
     }

@@ -140,6 +140,7 @@ namespace WebAddressbookTests
         }
         public GroupHelper MakeSureAGroupExists()
         {
+            manager.Navigator.GotoGroupsPage();
             if (!DoesAGroupExist())
             {
                 GroupData group = GenerateGroupData();

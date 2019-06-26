@@ -12,28 +12,41 @@ namespace WebAddressbookTests
         [Test]
         public void TestRemovingContactFromGroup()
         {
-            int i;
-            List<ContactData> oldList = null;
+            //Make sure that at least 1 Group & 1 Contact exist
+            app.Groups.MakeSureAGroupExists();
+            app.Contacts.MakeSureAContactExists(0);
 
+            int i = 0;
+            List<ContactData> oldList = null;
             List <GroupData> groups = GroupData.GetAll();
+            ContactData contactInGroup = null;
+            GroupData groupWithContact = null;
+
+            //Checking that there is at least 1 group with a contact
             for (i = 0; i < groups.Count; i++)
             {
                 oldList = groups[i].GetContacts();
+                //If the contact list of group is not empty, set 'contactIngroup' & 'groupWithContact' variables
                 if (oldList.Count != 0)
                 {
+                    contactInGroup = oldList[0];
+                    groupWithContact = groups[i];
                     break;
                 }
-                if (i == groups.Count - 1)
-                {
-                    System.Console.Out.WriteLine("There is no groups with contacts found!");
-                }
             }
-            ContactData contactInGroup = oldList[0];
+            //If the group with a contact has not been found, add 1st contact to the 1st group
+            if (contactInGroup == null)
+            {
+                contactInGroup = ContactData.GetAll()[0];
+                groupWithContact = GroupData.GetAll()[0];
+                app.Contacts.AddContactToGroup(contactInGroup, groupWithContact);
+                oldList = groupWithContact.GetContacts();
+            }
 
             //actions
-            app.Contacts.RemoveContactFromGroup(contactInGroup, groups[i]);
+            app.Contacts.RemoveContactFromGroup(contactInGroup, groupWithContact);
 
-            List<ContactData> newList = groups[i].GetContacts();
+            List<ContactData> newList = groupWithContact.GetContacts();
             oldList.RemoveAt(0);
             oldList.Sort();
             newList.Sort();

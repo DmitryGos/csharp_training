@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -25,6 +26,7 @@ namespace WebAddressbookTests
 
             return this;
         }
+
         internal void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GotoHomePage();
@@ -135,6 +137,7 @@ namespace WebAddressbookTests
         }
         public bool DoesTheContactExist(int index)
         {
+            manager.Navigator.GotoHomePage();
             return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]"));
         }
         public ContactHelper MakeSureAContactExists(int index)

@@ -23,11 +23,11 @@ namespace WebAddressbookTests
         }
         public bool Equals(ContactData other)
         {
-            if (object.ReferenceEquals(other, null))
+            if (other is null)
             {
                 return false;
             }
-            if (object.ReferenceEquals(this, other))
+            if (ReferenceEquals(this, other))
             {
                 return true;
             }
@@ -48,7 +48,7 @@ namespace WebAddressbookTests
         public int CompareTo(ContactData other)
         {
             //Если объект null, возвращаем 1 (заведомо больше)
-            if (object.ReferenceEquals(other, null))
+            if (other is null)
             {
                 return 1;
             }
@@ -148,6 +148,16 @@ namespace WebAddressbookTests
                 return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
             }
         }
-
+        public List<GroupData> GetGroups()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                List<GroupData> groups =
+                    (from g in db.Groups
+                     from gcr in db.GCR.Where(p => p.ContactId == Id && p.GroupId == g.Id)
+                     select g).Distinct().ToList();
+                return groups;
+            }
+        }
     }
 }
