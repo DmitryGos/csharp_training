@@ -38,14 +38,10 @@ namespace addressbook_tests_autoit
                 "WindowsForms10.SysTreeView32.app.0.2c908d51", 
                 "Select", "#0|#" + index, "");
             //Click Delete button
-            var res = aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
-            System.Console.Out.WriteLine("Delete button click result is: " + res);
-            //Select "Remove group and contacts" (Default)
-            res = aux.ControlClick(GROUPDELETEWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d52");
-            System.Console.Out.WriteLine("Radiobutton select result is: " + res);
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
             //Confirm deleting
-            res = aux.ControlClick(GROUPDELETEWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
-            System.Console.Out.WriteLine("Confirm deleting result is: " + res);
+            //aux.ControlClick("Delete group", "", "WindowsForms10.BUTTON.app.0.2c908d53");
+            aux.Send("{ENTER}");
             CloseGroupsDialog();
         }
 
