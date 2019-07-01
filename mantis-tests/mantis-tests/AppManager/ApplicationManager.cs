@@ -22,6 +22,7 @@ namespace mantis_tests
             baseURL = "http://localhost";
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
             Registration = new RegistrationHelper(this);
+            James = new JamesHelper(this);
             Ftp = new FtpHelper(this);
         }
         ~ApplicationManager()
@@ -53,6 +54,7 @@ namespace mantis_tests
             }
         }
         public RegistrationHelper Registration { get; set; }
+        public JamesHelper James { get; set; }
         public FtpHelper Ftp { get; set; }
     }
 }
