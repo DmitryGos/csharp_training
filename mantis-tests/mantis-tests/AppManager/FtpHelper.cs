@@ -10,11 +10,13 @@ namespace mantis_tests
 {
     public class FtpHelper : HelperBase
     {
-        private FtpClient client;
+        private readonly FtpClient client;
         public FtpHelper(ApplicationManager manager) : base(manager) {
-            client = new FtpClient();
-            client.Credentials = new System.Net.NetworkCredential("mantis", "mantis");
-            client.Host = "localhost";
+            client = new FtpClient
+            {
+                Credentials = new System.Net.NetworkCredential("mantis", "mantis"),
+                Host = "localhost"
+            };
             client.Connect();
         }
 

@@ -11,10 +11,10 @@ namespace mantis_tests
 {
     public class ApplicationManager
     {
-        private IWebDriver driver;
+        private readonly IWebDriver driver;
         protected string baseURL;
 
-        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
+        private static readonly ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
@@ -23,6 +23,7 @@ namespace mantis_tests
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(3);
             Registration = new RegistrationHelper(this);
             James = new JamesHelper(this);
+            Mail = new MailHelper(this);
             Ftp = new FtpHelper(this);
         }
         ~ApplicationManager()
@@ -53,8 +54,9 @@ namespace mantis_tests
                 return driver;
             }
         }
-        public RegistrationHelper Registration { get; set; }
-        public JamesHelper James { get; set; }
-        public FtpHelper Ftp { get; set; }
+        public RegistrationHelper Registration { get; private set; }
+        public JamesHelper James { get; private set; }
+        public MailHelper Mail { get; private set; }
+        public FtpHelper Ftp { get; private set; }
     }
 }

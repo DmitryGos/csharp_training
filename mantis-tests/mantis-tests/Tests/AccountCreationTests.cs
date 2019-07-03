@@ -22,11 +22,13 @@ namespace mantis_tests
         [Test]
         public void TestAccountRegistration()
         {
+            string username = "testuser" + (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds; ;
+
             AccountData account = new AccountData()
             {
-                Name = "testuser",
+                Name = username,
                 Password = "password",
-                Email = "testuser@localhost.localdomain"
+                Email = username + "@localhost.localdomain"
             };
 
             app.James.Delete(account);
