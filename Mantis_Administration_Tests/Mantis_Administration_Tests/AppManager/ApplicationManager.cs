@@ -24,7 +24,7 @@ namespace MantisAdministrationTests
             baseURL = "http://localhost";
 
             Navigator = new NavigationHelper(this, baseURL);
-            Login = new LoginHelper(this);
+            Auth = new LoginHelper(this);
             ProjManager = new ProjectManagementHelper(this);
         }
         ~ApplicationManager()
@@ -56,7 +56,7 @@ namespace MantisAdministrationTests
             }
         }
         public NavigationHelper Navigator { get; private set; }
-        public LoginHelper Login { get; private set; }
+        public LoginHelper Auth { get; private set; }
         public ProjectManagementHelper ProjManager { get; private set; }
     }
 }

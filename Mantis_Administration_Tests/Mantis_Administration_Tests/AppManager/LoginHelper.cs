@@ -12,9 +12,19 @@ namespace MantisAdministrationTests
     {
         public LoginHelper(ApplicationManager manager) : base(manager) { }
 
-        public void LoginToMantis(AccountData account)
+        public void Login(AccountData account)
         {
-            Type(By.Id("username"), account.Name);
+
+            if (IsLoggedIn())
+            {
+                if (IsLoggedIn(account))
+                {
+                    return;
+                }
+                Logout();
+            }
+
+            Type(By.Id("username"), account.Username);
             driver.FindElement(By.TagName("input[type='submit']")).Click();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => driver.FindElements(By.Id("hidden_username")).Count > 0);
@@ -22,8 +32,26 @@ namespace MantisAdministrationTests
             Type(By.Id("password"), account.Password);
             driver.FindElement(By.TagName("input[type='submit']")).Click();
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
-                .Until(d => driver.FindElements(By.LinkText(account.Name)).Count > 0);
+                .Until(d => driver.FindElements(By.LinkText(account.Username)).Count > 0);
         }
 
+        private bool IsLoggedIn()
+        {
+            return IsElementPresent(By.LinkText("/mantisbt-2.21.1/logout_page.php"));
+        }
+
+        public bool IsLoggedIn(AccountData account)
+        {
+            return IsLoggedIn()
+                && GetLoggedUsername() == account.Username;
+        }
+        private string GetLoggedUsername()
+        {
+            return driver.FindElement(By.ClassName("user-info")).Text;
+        }
+        private void Logout()
+        {
+            manager.Navigator.Logout();
+        }
     }
 }

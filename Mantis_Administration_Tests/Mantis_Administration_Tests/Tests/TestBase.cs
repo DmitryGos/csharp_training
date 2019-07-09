@@ -13,7 +13,7 @@ namespace MantisAdministrationTests
 
         protected ApplicationManager app;
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void SetupApplicationManager()
         {
             app = ApplicationManager.GetInstance();

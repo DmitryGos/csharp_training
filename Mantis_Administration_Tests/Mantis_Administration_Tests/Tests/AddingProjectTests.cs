@@ -12,20 +12,24 @@ namespace MantisAdministrationTests
         [Test]
         public void AddingProjectTest()
         {
-            AccountData admin = new AccountData()
-            {
-                Name = "Administrator",
-                Password = "root"
-            };
-            ProjectData project = new ProjectData()
-            {
-                Name = GenerateRandomString(10)
-            };
+            ProjectData project = new ProjectData();
+            bool result = true;
+            int i = 0;
 
-            app.Navigator.GotoManageProjectPage();
-            app.ProjManager.InitNewProjectCreation()
-                .FillNewProjectForm(project)
-                .ConfirmAddingProject();
+            do
+            {
+                project.Name = GenerateRandomString(10);
+                result = app.ProjManager.CheckProjectAdded(project);
+                i++;
+
+                if (i == 100)
+                {
+                    System.Console.Out.WriteLine("Project cannot be added because not free name is found.");
+                    return;
+                }
+            } while (result == true);
+
+            app.ProjManager.AddProject(project);
 
             Assert.IsTrue(app.ProjManager.CheckProjectAdded(project));
         }

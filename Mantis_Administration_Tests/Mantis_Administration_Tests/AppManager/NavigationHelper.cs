@@ -28,5 +28,15 @@ namespace MantisAdministrationTests
         {
             driver.Navigate().GoToUrl(baseURL + "/mantisbt-2.21.1/manage_proj_page.php");
         }
+
+        internal void GotoProjectPage(string index)
+        {
+            driver.Navigate().GoToUrl(baseURL + "/mantisbt-2.21.1/manage_proj_edit_page.php?project_id=" + index);
+        }
+
+        internal void Logout()
+        {
+            driver.Navigate().GoToUrl(baseURL + "/mantisbt-2.21.1/logout_page.php");
+        }
     }
 }

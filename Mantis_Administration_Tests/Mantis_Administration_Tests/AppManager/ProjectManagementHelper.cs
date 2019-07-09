@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 
@@ -17,6 +18,34 @@ namespace MantisAdministrationTests
         {
             driver.FindElement(By.CssSelector("button.btn.btn-primary.btn-white.btn-round")).Click();
             return this;
+        }
+
+        internal void RemoveProject(string index)
+        {
+            manager.Navigator.GotoProjectPage(index);
+            DeleteProject();
+            ConfirmDelition();
+        }
+
+        private void DeleteProject()
+        {
+            driver.FindElement(By.Id("project-delete-form")).FindElement(By.TagName("input[type='submit']")).Click();
+        }
+
+        private void ConfirmDelition()
+        {
+            driver.FindElement(By.TagName("input[type='submit']")).Click();
+            IsElementPresent(By.LinkText("/mantisbt-2.21.1/account_page.php"));
+        }
+
+        internal void AddProject(ProjectData project)
+        {
+            manager.Navigator.GotoManageProjectPage();
+            InitNewProjectCreation();
+            FillNewProjectForm(project);
+            ConfirmAddingProject();
+
+            projectsCache = null;
         }
 
         public ProjectManagementHelper FillNewProjectForm(ProjectData project)
@@ -39,14 +68,18 @@ namespace MantisAdministrationTests
                 projectsCache = new List<ProjectData>();
                 manager.Navigator.GotoManageProjectPage();
                 IList<IWebElement> elements = driver.FindElements(By.TagName("table"))[0].FindElement(By.TagName("tbody")).FindElements(By.TagName("tr")).ToList<IWebElement>();
-
                 foreach (IWebElement element in elements)
                 {
                     projectsCache.Add(new ProjectData()
                     {
-                        Name = element.FindElements(By.TagName("td"))[0].Text
+                        Name = element.FindElement(By.TagName("td")).Text,
+                        Id = Regex.Match(element.FindElement(By.TagName("td"))
+                            .FindElement(By.TagName("a"))
+                            .GetAttribute("href")
+                            , "(?<=id=).*")
+                            .Value
                     });
-                }
+                }                
             }
         return projectsCache;
         }

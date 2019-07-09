@@ -12,9 +12,9 @@ namespace MantisAdministrationTests
         [SetUp]
         public void SetupLogin()
         {
-            app.Login.LoginToMantis(new AccountData()
+            app.Auth.Login(new AccountData()
             {
-                Name = "administrator",
+                Username = "administrator",
                 Password = "root"
             });
         }
