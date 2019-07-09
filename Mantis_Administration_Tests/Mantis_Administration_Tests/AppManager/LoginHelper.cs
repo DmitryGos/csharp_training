@@ -37,7 +37,7 @@ namespace MantisAdministrationTests
 
         private bool IsLoggedIn()
         {
-            return IsElementPresent(By.LinkText("/mantisbt-2.21.1/logout_page.php"));
+            return IsElementPresent(By.TagName("a[href='/mantisbt-2.21.1/logout_page.php']"));
         }
 
         public bool IsLoggedIn(AccountData account)
