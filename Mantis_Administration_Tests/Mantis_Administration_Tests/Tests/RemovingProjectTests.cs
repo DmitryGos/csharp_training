@@ -16,6 +16,17 @@ namespace MantisAdministrationTests
 
             List<ProjectData> oldList = app.ProjManager.GetProjectsList();
 
+            if (oldList.Count == 0)
+            {
+                ProjectData project = new ProjectData()
+                {
+                    Name = GenerateRandomString(10)
+                };
+                app.ProjManager.AddProject(project);
+
+                oldList = app.ProjManager.GetProjectsList();
+            }
+
             app.ProjManager.RemoveProject(oldList[index].Id);
 
             List<ProjectData> newList = app.ProjManager.GetProjectsList();
