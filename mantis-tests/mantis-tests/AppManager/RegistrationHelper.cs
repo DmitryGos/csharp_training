@@ -19,7 +19,7 @@ namespace mantis_tests
             FillRegistrationForm(account);
             SubmitResgistration();
             string url = GetConfirmationURL(account);
-            FillPasswordForm(url);
+            FillPasswordForm(url, account);
             SubmitPasswordForm();
         }
 
@@ -38,13 +38,16 @@ namespace mantis_tests
             }
         }
 
-        private void FillPasswordForm(string url)
+        private void FillPasswordForm(string url, AccountData account)
         {
-            throw new NotImplementedException();
+            driver.Url = url;
+            driver.FindElement(By.Id("realname")).SendKeys(account.Name);
+            driver.FindElement(By.Id("password")).SendKeys(account.Password);
+            driver.FindElement(By.Id("password-confirm")).SendKeys(account.Password);
         }
         private void SubmitPasswordForm()
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.TagName("button[type='submit']")).Click();
         }
         private void OpenRegistrationForm()
         {
