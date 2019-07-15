@@ -34,7 +34,6 @@ namespace MantisAdministrationTests
             new WebDriverWait(driver, TimeSpan.FromSeconds(10))
                 .Until(d => driver.FindElements(By.LinkText(account.Username)).Count > 0);
         }
-
         private bool IsLoggedIn()
         {
             return IsElementPresent(By.TagName("a[href='/mantisbt-2.21.1/logout_page.php']"));
